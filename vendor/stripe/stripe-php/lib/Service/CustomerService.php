@@ -1,5 +1,7 @@
 <?php
 
+// File generated from our OpenAPI spec
+
 namespace Stripe\Service;
 
 class CustomerService extends \Stripe\Service\AbstractService
@@ -17,12 +19,12 @@ class CustomerService extends \Stripe\Service\AbstractService
      */
     public function all($params = null, $opts = null)
     {
-        return $this->request('get', '/v1/customers', $params, $opts);
+        return $this->requestCollection('get', '/v1/customers', $params, $opts);
     }
 
     /**
      * Returns a list of transactions that updated the customer’s <a
-     * href="/docs/api/customers/object#customer_object-balance"><code>balance</code></a>.
+     * href="/docs/billing/customer/balance">balances</a>.
      *
      * @param string $parentId
      * @param null|array $params
@@ -34,7 +36,7 @@ class CustomerService extends \Stripe\Service\AbstractService
      */
     public function allBalanceTransactions($parentId, $params = null, $opts = null)
     {
-        return $this->request('get', $this->buildPath('/v1/customers/%s/balance_transactions', $parentId), $params, $opts);
+        return $this->requestCollection('get', $this->buildPath('/v1/customers/%s/balance_transactions', $parentId), $params, $opts);
     }
 
     /**
@@ -50,7 +52,7 @@ class CustomerService extends \Stripe\Service\AbstractService
      */
     public function allSources($parentId, $params = null, $opts = null)
     {
-        return $this->request('get', $this->buildPath('/v1/customers/%s/sources', $parentId), $params, $opts);
+        return $this->requestCollection('get', $this->buildPath('/v1/customers/%s/sources', $parentId), $params, $opts);
     }
 
     /**
@@ -66,7 +68,7 @@ class CustomerService extends \Stripe\Service\AbstractService
      */
     public function allTaxIds($parentId, $params = null, $opts = null)
     {
-        return $this->request('get', $this->buildPath('/v1/customers/%s/tax_ids', $parentId), $params, $opts);
+        return $this->requestCollection('get', $this->buildPath('/v1/customers/%s/tax_ids', $parentId), $params, $opts);
     }
 
     /**
@@ -85,8 +87,8 @@ class CustomerService extends \Stripe\Service\AbstractService
     }
 
     /**
-     * Creates an immutable transaction that updates the customer’s <a
-     * href="/docs/api/customers/object#customer_object-balance"><code>balance</code></a>.
+     * Creates an immutable transaction that updates the customer’s credit <a
+     * href="/docs/billing/customer/balance">balance</a>.
      *
      * @param string $parentId
      * @param null|array $params
@@ -222,8 +224,8 @@ class CustomerService extends \Stripe\Service\AbstractService
     }
 
     /**
-     * Retrieves a specific transaction that updated the customer’s <a
-     * href="/docs/api/customers/object#customer_object-balance"><code>balance</code></a>.
+     * Retrieves a specific customer balance transaction that updated the customer’s <a
+     * href="/docs/billing/customer/balance">balances</a>.
      *
      * @param string $parentId
      * @param string $id
@@ -302,7 +304,7 @@ class CustomerService extends \Stripe\Service\AbstractService
     }
 
     /**
-     * Most customer balance transaction fields are immutable, but you may update its
+     * Most credit balance transaction fields are immutable, but you may update its
      * <code>description</code> and <code>metadata</code>.
      *
      * @param string $parentId

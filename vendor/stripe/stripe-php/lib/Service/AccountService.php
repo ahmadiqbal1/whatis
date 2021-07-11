@@ -1,5 +1,7 @@
 <?php
 
+// File generated from our OpenAPI spec
+
 namespace Stripe\Service;
 
 class AccountService extends \Stripe\Service\AbstractService
@@ -17,7 +19,7 @@ class AccountService extends \Stripe\Service\AbstractService
      */
     public function all($params = null, $opts = null)
     {
-        return $this->request('get', '/v1/accounts', $params, $opts);
+        return $this->requestCollection('get', '/v1/accounts', $params, $opts);
     }
 
     /**
@@ -35,7 +37,7 @@ class AccountService extends \Stripe\Service\AbstractService
      */
     public function allCapabilities($parentId, $params = null, $opts = null)
     {
-        return $this->request('get', $this->buildPath('/v1/accounts/%s/capabilities', $parentId), $params, $opts);
+        return $this->requestCollection('get', $this->buildPath('/v1/accounts/%s/capabilities', $parentId), $params, $opts);
     }
 
     /**
@@ -51,7 +53,7 @@ class AccountService extends \Stripe\Service\AbstractService
      */
     public function allExternalAccounts($parentId, $params = null, $opts = null)
     {
-        return $this->request('get', $this->buildPath('/v1/accounts/%s/external_accounts', $parentId), $params, $opts);
+        return $this->requestCollection('get', $this->buildPath('/v1/accounts/%s/external_accounts', $parentId), $params, $opts);
     }
 
     /**
@@ -69,7 +71,7 @@ class AccountService extends \Stripe\Service\AbstractService
      */
     public function allPersons($parentId, $params = null, $opts = null)
     {
-        return $this->request('get', $this->buildPath('/v1/accounts/%s/persons', $parentId), $params, $opts);
+        return $this->requestCollection('get', $this->buildPath('/v1/accounts/%s/persons', $parentId), $params, $opts);
     }
 
     /**
@@ -144,11 +146,11 @@ class AccountService extends \Stripe\Service\AbstractService
     }
 
     /**
-     * With <a href="/docs/connect">Connect</a>, you can delete Custom or Express
-     * accounts you manage.
+     * With <a href="/docs/connect">Connect</a>, you can delete accounts you manage.
      *
-     * Accounts created using test-mode keys can be deleted at any time. Accounts
-     * created using live-mode keys can only be deleted once all balances are zero.
+     * Accounts created using test-mode keys can be deleted at any time. Custom or
+     * Express accounts created using live-mode keys can only be deleted once all
+     * balances are zero.
      *
      * If you want to delete your own account, use the <a
      * href="https://dashboard.stripe.com/account">account information tab in your
@@ -276,11 +278,11 @@ class AccountService extends \Stripe\Service\AbstractService
     }
 
     /**
-     * Updates a connected <a href="/docs/connect/accounts">Express or Custom
-     * account</a> by setting the values of the parameters passed. Any parameters not
-     * provided are left unchanged. Most parameters can be changed only for Custom
-     * accounts. (These are marked <strong>Custom Only</strong> below.) Parameters
-     * marked <strong>Custom and Express</strong> are supported by both account types.
+     * Updates a <a href="/docs/connect/accounts">connected account</a> by setting the
+     * values of the parameters passed. Any parameters not provided are left unchanged.
+     * Most parameters can be changed only for Custom accounts. (These are marked
+     * <strong>Custom Only</strong> below.) Parameters marked <strong>Custom and
+     * Express</strong> are not supported for Standard accounts.
      *
      * To update your own account, use the <a
      * href="https://dashboard.stripe.com/account">Dashboard</a>. Refer to our <a

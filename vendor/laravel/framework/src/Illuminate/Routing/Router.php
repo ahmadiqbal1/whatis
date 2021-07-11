@@ -243,8 +243,8 @@ class Router implements BindingRegistrar, RegistrarContract
     public function redirect($uri, $destination, $status = 302)
     {
         return $this->any($uri, '\Illuminate\Routing\RedirectController')
-                    ->defaults('destination', $destination)
-                    ->defaults('status', $status);
+                ->defaults('destination', $destination)
+                ->defaults('status', $status);
     }
 
     /**
@@ -270,8 +270,8 @@ class Router implements BindingRegistrar, RegistrarContract
     public function view($uri, $view, $data = [])
     {
         return $this->match(['GET', 'HEAD'], $uri, '\Illuminate\Routing\ViewController')
-                    ->defaults('view', $view)
-                    ->defaults('data', $data);
+                ->defaults('view', $view)
+                ->defaults('data', $data);
     }
 
     /**
@@ -353,8 +353,8 @@ class Router implements BindingRegistrar, RegistrarContract
         }
 
         return $this->resource($name, $controller, array_merge([
-                                                                   'only' => $only,
-                                                               ], $options));
+            'only' => $only,
+        ], $options));
     }
 
     /**
@@ -533,7 +533,7 @@ class Router implements BindingRegistrar, RegistrarContract
         $group = end($this->groupStack);
 
         return isset($group['namespace']) && strpos($class, '\\') !== 0
-            ? $group['namespace'].'\\'.$class : $class;
+                ? $group['namespace'].'\\'.$class : $class;
     }
 
     /**
@@ -547,8 +547,8 @@ class Router implements BindingRegistrar, RegistrarContract
     public function newRoute($methods, $uri, $action)
     {
         return (new Route($methods, $uri, $action))
-            ->setRouter($this)
-            ->setContainer($this->container);
+                    ->setRouter($this)
+                    ->setContainer($this->container);
     }
 
     /**
@@ -571,8 +571,8 @@ class Router implements BindingRegistrar, RegistrarContract
     protected function addWhereClausesToRoute($route)
     {
         $route->where(array_merge(
-                          $this->patterns, $route->getAction()['where'] ?? []
-                      ));
+            $this->patterns, $route->getAction()['where'] ?? []
+        ));
 
         return $route;
     }
@@ -659,7 +659,7 @@ class Router implements BindingRegistrar, RegistrarContract
         $this->events->dispatch(new RouteMatched($route, $request));
 
         return $this->prepareResponse($request,
-                                      $this->runRouteWithinStack($route, $request)
+            $this->runRouteWithinStack($route, $request)
         );
     }
 
@@ -673,18 +673,18 @@ class Router implements BindingRegistrar, RegistrarContract
     protected function runRouteWithinStack(Route $route, Request $request)
     {
         $shouldSkipMiddleware = $this->container->bound('middleware.disable') &&
-            $this->container->make('middleware.disable') === true;
+                                $this->container->make('middleware.disable') === true;
 
         $middleware = $shouldSkipMiddleware ? [] : $this->gatherRouteMiddleware($route);
 
         return (new Pipeline($this->container))
-            ->send($request)
-            ->through($middleware)
-            ->then(function ($request) use ($route) {
-                return $this->prepareResponse(
-                    $request, $route->run()
-                );
-            });
+                        ->send($request)
+                        ->through($middleware)
+                        ->then(function ($request) use ($route) {
+                            return $this->prepareResponse(
+                                $request, $route->run()
+                            );
+                        });
     }
 
     /**
@@ -749,11 +749,11 @@ class Router implements BindingRegistrar, RegistrarContract
         } elseif ($response instanceof Model && $response->wasRecentlyCreated) {
             $response = new JsonResponse($response, 201);
         } elseif (! $response instanceof SymfonyResponse &&
-            ($response instanceof Arrayable ||
-                $response instanceof Jsonable ||
-                $response instanceof ArrayObject ||
-                $response instanceof JsonSerializable ||
-                is_array($response))) {
+                   ($response instanceof Arrayable ||
+                    $response instanceof Jsonable ||
+                    $response instanceof ArrayObject ||
+                    $response instanceof JsonSerializable ||
+                    is_array($response))) {
             $response = new JsonResponse($response);
         } elseif (! $response instanceof SymfonyResponse) {
             $response = new Response($response, 200, ['Content-Type' => 'text/html']);
@@ -1085,16 +1085,6 @@ class Router implements BindingRegistrar, RegistrarContract
      * @return string|null
      */
     public function currentRouteName()
-    {
-        return $this->current() ? $this->current()->getName() : null;
-    }
-
-    /**
-     * Get the current route name.
-     *
-     * @return string|null
-     */
-    public function getCourant()
     {
         return $this->current() ? $this->current()->getName() : null;
     }
